@@ -1,0 +1,6 @@
+.Renviron
+.Rhistory
+.RData
+.Ruserdata
+*_cache/
+_freeze/

@@ -1,0 +1,11 @@
+# Copy this file to .Renviron and fill in your values.
+# .Renviron is gitignored — never commit real credentials.
+
+# REDCap API
+REDCAP_URL=https://redcapsurvey.slu.edu/api/
+RDM_TOKEN=your_rdm_token_here
+
+# Posit Connect Cloud
+# Find these in: Connect Cloud → Your profile → API Keys
+CONNECT_SERVER=https://yourteam.connect.posit.cloud
+CONNECT_API_KEY=your_connect_api_key_here

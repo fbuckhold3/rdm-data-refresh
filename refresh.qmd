@@ -1,0 +1,75 @@
+---
+title: "RDM 2.0 Data Refresh"
+format: html
+execute:
+  echo: false
+  message: true
+  warning: false
+---
+
+Pulls a fresh copy of all RDM 2.0 data from REDCap and writes it to a
+Posit Connect pin (`rdm_complete_raw`). All IMSLU apps read from this
+pin instead of hitting the REDCap API directly, keeping startup times
+under a second.
+
+Schedule this content to run every 30–60 minutes on Posit Connect Cloud.
+
+```{r}
+#| label: setup
+library(gmed)
+library(pins)
+library(httr)
+
+# Required for institutional REDCap SSL certificate
+httr::set_config(httr::config(ssl_verifypeer = FALSE, ssl_verifyhost = FALSE))
+
+# Validate required environment variables
+required_vars <- c("REDCAP_URL", "RDM_TOKEN")
+missing_vars  <- required_vars[!nzchar(Sys.getenv(required_vars))]
+if (length(missing_vars) > 0) {
+  stop("Missing required environment variables: ", paste(missing_vars, collapse = ", "))
+}
+```
+
+```{r}
+#| label: connect-board
+# board_connect() auto-detects CONNECT_SERVER and CONNECT_API_KEY
+# when running inside a Posit Connect deployment.
+board <- pins::board_connect()
+cat("Connected to pin board\n")
+```
+
+```{r}
+#| label: pull-redcap
+start_time <- Sys.time()
+cat("Starting REDCap pull at", format(start_time, "%Y-%m-%d %H:%M:%S"), "\n")
+
+rdm_raw <- gmed::load_rdm_complete(
+  redcap_url   = Sys.getenv("REDCAP_URL"),
+  rdm_token    = Sys.getenv("RDM_TOKEN"),
+  raw_or_label = "raw"
+)
+
+elapsed <- round(as.numeric(difftime(Sys.time(), start_time, units = "secs")), 1)
+cat("REDCap pull complete in", elapsed, "seconds\n")
+```
+
+```{r}
+#| label: write-pin
+pins::pin_write(
+  board,
+  rdm_raw,
+  name        = "rdm_complete_raw",
+  type        = "rds",
+  description = paste("RDM 2.0 raw data — refreshed", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
+)
+cat("Pin written successfully\n")
+```
+
+```{r}
+#| label: summary
+cat("---\n")
+cat("Residents in pin:", nrow(rdm_raw$residents), "\n")
+cat("Forms included:  ", length(rdm_raw$all_forms), "\n")
+cat("Completed at:    ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+```

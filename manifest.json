@@ -2716,12 +2716,56 @@
     },
     "pins": {
       "Source": "CRAN",
-      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "Repository": "https://cran.rstudio.com",
       "description": {
         "Package": "pins",
-        "Version": "1.4.2",
-        "Source": "Repository",
-        "Repository": "RSPM"
+        "Type": "Package",
+        "Title": "Pin, Discover, and Share Resources",
+        "Version": "1.4.0",
+        "Authors@R": "c(person('Hadley', 'Wickham', role=c('aut','cre'), email='hadley@posit.co'), person('Posit Software, PBC', role=c('cph','fnd')))",
+        "Description": "Publish data sets, models, and other R objects, making it easy to share them across projects and with your colleagues.",
+        "License": "Apache License (>= 2)",
+        "Depends": "R (>= 4.1.0)",
+        "Imports": "cli, digest, fs, generics, glue, httr, jsonlite, lifecycle, nanoparquet, purrr (>= 1.0.0), rappdirs, rlang (>= 1.1.0), tibble, whisker, withr (>= 2.4.3), yaml",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "no",
+        "Repository": "CRAN",
+        "Built": "R 4.3.0; ; 2024-01-01 00:00:00 UTC; unix"
+      }
+    },
+    "whisker": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "description": {
+        "Package": "whisker",
+        "Type": "Package",
+        "Title": "{{mustache}} for R, Logicless Templating",
+        "Version": "0.4.1",
+        "Author": "Edwin de Jonge",
+        "Maintainer": "Edwin de Jonge <edwindjonge@gmail.com>",
+        "Description": "Implements Mustache logicless templating.",
+        "License": "GPL-3",
+        "NeedsCompilation": "no",
+        "Repository": "CRAN",
+        "Built": "R 4.3.0; ; 2023-01-01 00:00:00 UTC; unix"
+      }
+    },
+    "nanoparquet": {
+      "Source": "CRAN",
+      "Repository": "https://cran.rstudio.com",
+      "description": {
+        "Package": "nanoparquet",
+        "Type": "Package",
+        "Title": "Read and Write 'Parquet' Files",
+        "Version": "0.4.0",
+        "Author": "Gabor Csardi",
+        "Maintainer": "Gabor Csardi <csardi.gabor@gmail.com>",
+        "Description": "Self-sufficient reader and writer for flat Parquet files.",
+        "License": "MIT + file LICENSE",
+        "Depends": "R (>= 4.0.0)",
+        "NeedsCompilation": "yes",
+        "Repository": "CRAN",
+        "Built": "R 4.3.0; x86_64-pc-linux-gnu; 2024-01-01 00:00:00 UTC; unix"
       }
     }
   },

@@ -33,8 +33,9 @@ if (length(missing_vars) > 0) {
 
 ```{r}
 #| label: connect-board
-# Posit Connect Cloud does NOT auto-inject these — must be set as
-# environment variables on the content in Connect Cloud settings.
+# Both CONNECT_SERVER and CONNECT_API_KEY must be set as environment
+# variables on the content in Connect Cloud — never hardcoded in the script.
+# Get CONNECT_API_KEY from: Profile → API Keys → New Key
 board <- pins::board_connect(
   server = Sys.getenv("CONNECT_SERVER"),
   key    = Sys.getenv("CONNECT_API_KEY")

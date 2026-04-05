@@ -336,24 +336,14 @@
     },
     "gmed": {
       "Package": "gmed",
-      "Version": "0.1.0",
+      "Version": "0.0.1",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "fbuckhold3",
       "RemoteRepo": "gmed",
       "RemoteRef": "HEAD",
-      "RemoteSha": "HEAD",
-      "Requirements": [
-        "dplyr",
-        "tidyr",
-        "stringr",
-        "ggplot2",
-        "plotly",
-        "REDCapR",
-        "httr",
-        "lubridate"
-      ]
+      "RemoteSha": "795b86f7da1f0a70cb3c655866e1d6f69a31cf82"
     }
   }
 }

@@ -24,7 +24,7 @@ library(httr)
 httr::set_config(httr::config(ssl_verifypeer = FALSE, ssl_verifyhost = FALSE))
 
 # Validate required environment variables
-required_vars <- c("REDCAP_URL", "RDM_TOKEN")
+required_vars <- c("REDCAP_URL", "RDM_TOKEN", "CONNECT_SERVER", "CONNECT_API_KEY")
 missing_vars  <- required_vars[!nzchar(Sys.getenv(required_vars))]
 if (length(missing_vars) > 0) {
   stop("Missing required environment variables: ", paste(missing_vars, collapse = ", "))
@@ -33,9 +33,12 @@ if (length(missing_vars) > 0) {
 
 ```{r}
 #| label: connect-board
-# board_connect() auto-detects CONNECT_SERVER and CONNECT_API_KEY
-# when running inside a Posit Connect deployment.
-board <- pins::board_connect()
+# Posit Connect Cloud does NOT auto-inject these — must be set as
+# environment variables on the content in Connect Cloud settings.
+board <- pins::board_connect(
+  server = Sys.getenv("CONNECT_SERVER"),
+  key    = Sys.getenv("CONNECT_API_KEY")
+)
 cat("Connected to pin board\n")
 ```
 

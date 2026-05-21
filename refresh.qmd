@@ -7,40 +7,31 @@ execute:
   warning: false
 ---
 
-Pulls a fresh copy of all RDM 2.0 data from REDCap and writes it to a
-Posit Connect pin (`rdm_complete_raw`). All IMSLU apps read from this
-pin instead of hitting the REDCap API directly, keeping startup times
-under a second.
+Pulls a fresh copy of all RDM 2.0 data from REDCap and writes the
+pre-computed milestone medians to the `app_cache` REDCap record so that
+all IMSLU apps can load them in \~1 second at startup instead of
+recomputing from scratch (\~25 seconds).
 
 Schedule this content to run every 30–60 minutes on Posit Connect Cloud.
 
 ```{r}
 #| label: setup
 library(gmed)
-library(pins)
-library(httr)
+library(REDCapR)
 
 # Required for institutional REDCap SSL certificate
 httr::set_config(httr::config(ssl_verifypeer = FALSE, ssl_verifyhost = FALSE))
 
 # Validate required environment variables
-required_vars <- c("REDCAP_URL", "RDM_TOKEN", "CONNECT_SERVER", "CONNECT_API_KEY")
+required_vars <- c("REDCAP_URL", "RDM_TOKEN", "CACHE_RECORD_ID")
 missing_vars  <- required_vars[!nzchar(Sys.getenv(required_vars))]
 if (length(missing_vars) > 0) {
   stop("Missing required environment variables: ", paste(missing_vars, collapse = ", "))
 }
-```
 
-```{r}
-#| label: connect-board
-# Both CONNECT_SERVER and CONNECT_API_KEY must be set as environment
-# variables on the content in Connect Cloud — never hardcoded in the script.
-# Get CONNECT_API_KEY from: Profile → API Keys → New Key
-board <- pins::board_connect(
-  server = Sys.getenv("CONNECT_SERVER"),
-  key    = Sys.getenv("CONNECT_API_KEY")
-)
-cat("Connected to pin board\n")
+REDCAP_URL      <- Sys.getenv("REDCAP_URL")
+RDM_TOKEN       <- Sys.getenv("RDM_TOKEN")
+CACHE_RECORD_ID <- Sys.getenv("CACHE_RECORD_ID")
 ```
 
 ```{r}
@@ -49,31 +40,44 @@ start_time <- Sys.time()
 cat("Starting REDCap pull at", format(start_time, "%Y-%m-%d %H:%M:%S"), "\n")
 
 rdm_raw <- gmed::load_rdm_complete(
-  redcap_url   = Sys.getenv("REDCAP_URL"),
-  rdm_token    = Sys.getenv("RDM_TOKEN"),
-  raw_or_label = "raw"
+  redcap_url   = REDCAP_URL,
+  rdm_token    = RDM_TOKEN,
+  raw_or_label = "raw",
+  verbose      = FALSE
 )
 
 elapsed <- round(as.numeric(difftime(Sys.time(), start_time, units = "secs")), 1)
 cat("REDCap pull complete in", elapsed, "seconds\n")
+cat("Residents loaded:  ", nrow(rdm_raw$residents), "\n")
+cat("Forms included:    ", length(rdm_raw$all_forms), "\n")
 ```
 
 ```{r}
-#| label: write-pin
-pins::pin_write(
-  board,
-  rdm_raw,
-  name        = "rdm_complete_raw",
-  type        = "rds",
-  description = paste("RDM 2.0 raw data — refreshed", format(Sys.time(), "%Y-%m-%d %H:%M:%S"))
-)
-cat("Pin written successfully\n")
+#| label: write-cache
+# historical_medians is already computed inside load_rdm_complete;
+# write_medians_cache strips processed_data and stores only the summary
+# data frames needed by apps for spider plots and comparisons.
+
+if (is.null(rdm_raw$historical_medians) || length(rdm_raw$historical_medians) == 0) {
+  cat("WARNING: historical_medians is empty — cache not updated\n")
+} else {
+  ok <- gmed::write_medians_cache(
+    medians         = rdm_raw$historical_medians,
+    rdm_token       = RDM_TOKEN,
+    redcap_url      = REDCAP_URL,
+    cache_record_id = CACHE_RECORD_ID
+  )
+  if (isTRUE(ok)) {
+    cat("Medians cache updated successfully\n")
+    cat("Forms cached: ", paste(names(rdm_raw$historical_medians), collapse = ", "), "\n")
+  } else {
+    cat("WARNING: medians cache write failed — check logs above\n")
+  }
+}
 ```
 
 ```{r}
 #| label: summary
 cat("---\n")
-cat("Residents in pin:", nrow(rdm_raw$residents), "\n")
-cat("Forms included:  ", length(rdm_raw$all_forms), "\n")
-cat("Completed at:    ", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+cat("Completed at:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
 ```

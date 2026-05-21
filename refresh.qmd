@@ -17,6 +17,7 @@ Schedule this content to run every 30–60 minutes on Posit Connect Cloud.
 ```{r}
 #| label: setup
 library(gmed)
+library(dplyr)
 library(REDCapR)
 
 # Required for institutional REDCap SSL certificate

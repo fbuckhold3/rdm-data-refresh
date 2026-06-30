@@ -415,8 +415,8 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "fbuckhold3",
       "RemoteRepo": "gmed",
-      "RemoteRef": "2c0f20a72bfd1f1d7b5693a57cee0b00b3bb3efd",
-      "RemoteSha": "2c0f20a72bfd1f1d7b5693a57cee0b00b3bb3efd",
+      "RemoteRef": "6e1afd1cd0a833a16ce6d1773574c6addf741255",
+      "RemoteSha": "6e1afd1cd0a833a16ce6d1773574c6addf741255",
       "Requirements": [
         "DT",
         "bslib",
@@ -437,7 +437,7 @@
         "tibble",
         "tidyr"
       ],
-      "Hash": "7ee14b5dfb377b6bfa1eb1433bc96676"
+      "Hash": "53685b7c6bf718f5abe40f33157fea36"
     },
     "gtable": {
       "Package": "gtable",

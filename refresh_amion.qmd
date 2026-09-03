@@ -1,0 +1,108 @@
+---
+title: "Amion Cache Refresh"
+format: html
+execute:
+  echo: false
+  message: true
+  warning: false
+---
+
+Pulls Amion schedule data + the RDM crosswalk, rebuilds amiontools'
+aggregate rotation/team/time-allocation summaries, and writes them to the
+`app_cache` REDCap record (separate fields from the milestone medians
+cache) so ind.dash's Schedule tab can load in ~1 second instead of
+re-fetching Amion + recomputing on every session.
+
+Deliberately aggregate-only — full per-resident-day detail
+(`build_daily_detail()`) is ~12 MB and far too large for a REDCap Notes
+Box field; that stays a live fetch.
+
+Schedule this content **weekly** on Posit Connect Cloud — separate
+schedule from `refresh.qmd`'s 30-60 min cadence, since Amion's academic-year
+schedule is pre-built in advance and doesn't change intraday the way
+faculty-entered evaluations do.
+
+```{r}
+#| label: setup
+library(amiontools)
+library(gmed)
+library(dplyr)
+
+# Required for institutional REDCap SSL certificate
+httr::set_config(httr::config(ssl_verifypeer = FALSE, ssl_verifyhost = FALSE))
+
+required_vars <- c("REDCAP_URL", "RDM_TOKEN", "CACHE_RECORD_ID")
+missing_vars  <- required_vars[!nzchar(Sys.getenv(required_vars))]
+if (length(missing_vars) > 0) {
+  stop("Missing required environment variables: ", paste(missing_vars, collapse = ", "))
+}
+
+REDCAP_URL      <- Sys.getenv("REDCAP_URL")
+RDM_TOKEN       <- Sys.getenv("RDM_TOKEN")
+CACHE_RECORD_ID <- Sys.getenv("CACHE_RECORD_ID")
+```
+
+```{r}
+#| label: pull-amion
+start_time <- Sys.time()
+cat("Starting Amion + crosswalk pull at", format(start_time, "%Y-%m-%d %H:%M:%S"), "\n")
+
+crosswalk <- get_amion_crosswalk(RDM_TOKEN, REDCAP_URL, verified_only = TRUE)
+amion     <- fetch_amion_data()
+
+elapsed <- round(as.numeric(difftime(Sys.time(), start_time, units = "secs")), 1)
+cat("Pull complete in", elapsed, "seconds\n")
+cat("Crosswalked residents:", nrow(crosswalk), "\n")
+cat("Amion rows:           ", nrow(amion), "\n")
+```
+
+```{r}
+#| label: build-summaries
+rot    <- build_rotation_summary(crosswalk = crosswalk, amion = amion)
+team   <- build_team_summary(crosswalk = crosswalk, amion = amion)
+talloc <- build_time_allocation_summary(crosswalk = crosswalk, amion = amion)
+
+# Aggregate/per-resident wide tables only -- the same shapes the ind.dash
+# Schedule tab modules already consume. NEVER add build_daily_detail() here
+# (see file header -- ~12 MB, blows past REDCap's field-size ceiling).
+# Field set matches exactly what mod_rotation_summary/mod_team_summary/
+# mod_time_allocation read off their respective build_*_summary() results
+# (cross-checked against each module's source, not guessed) -- team_
+# program_avg_wide is the one exception, not read by any current module,
+# kept anyway as cheap forward-value for the future program-wide dashboard.
+summaries <- list(
+  rotation_summary_wide   = rot$summary_wide,
+  rotation_class_avg_wide = rot$class_avg_wide,
+  team_summary_wide       = team$team_summary_wide,
+  team_class_avg_wide     = team$class_avg_wide,
+  team_off_summary_wide   = team$off_summary_wide,
+  team_off_class_avg_wide = team$off_class_avg_wide,
+  team_program_avg_wide   = team$program_avg_wide,
+  talloc_summary_wide     = talloc$summary_wide,
+  talloc_class_avg_wide   = talloc$class_avg_wide
+)
+
+cat("Summary tables built:", paste(names(summaries), collapse = ", "), "\n")
+```
+
+```{r}
+#| label: write-cache
+ok <- gmed::write_amion_cache(
+  summaries       = summaries,
+  rdm_token       = RDM_TOKEN,
+  redcap_url      = REDCAP_URL,
+  cache_record_id = CACHE_RECORD_ID
+)
+
+if (isTRUE(ok)) {
+  cat("Amion cache updated successfully\n")
+} else {
+  cat("WARNING: Amion cache write failed — check logs above\n")
+}
+```
+
+```{r}
+#| label: summary
+cat("---\n")
+cat("Completed at:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
+```

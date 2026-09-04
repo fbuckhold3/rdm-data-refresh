@@ -4,7 +4,7 @@
   "platform": "4.6.0",
   "metadata": {
     "appmode": "quarto-static",
-    "primary_rmd": "refresh.qmd",
+    "primary_rmd": "refresh_amion.qmd",
     "primary_html": null,
     "content_category": null,
     "has_parameters": false
@@ -15,7 +15,7 @@
     }
   },
   "quarto": {
-    "version": "1.9.38",
+    "version": "1.10.18",
     "engines": ["knitr"]
   },
   "packages": {
@@ -212,6 +212,38 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "aarch64-apple-darwin23",
         "RemoteSha": "0.2.2"
+      }
+    },
+    "amiontools": {
+      "Source": "github",
+      "Repository": null,
+      "description": {
+        "Package": "amiontools",
+        "Title": "Shared Amion Schedule Fetch, Classification, and Crosswalk Tools",
+        "Version": "0.0.1",
+        "Authors@R": "\n    person(\"Fred\", \"Buckhold\", , \"fbuckhold3@icloud.com\", role = c(\"aut\", \"cre\"))",
+        "Description": "Shared functions for pulling resident schedule data from\n    Amion, classifying assignments into top-level rotation categories, and\n    crosswalking Amion identities against RDM resident_id records. Used by\n    amion-va-report and downstream rotation-analysis, attendance-\n    reconciliation, and duty-hour tools across the IMSLU / GME Tools\n    ecosystem.",
+        "License": "MIT + file LICENSE",
+        "Encoding": "UTF-8",
+        "Roxygen": "list(markdown = TRUE)",
+        "Imports": "dplyr,\nDT,\ngmed,\nhttr,\nlubridate,\nplotly,\nREDCapR,\nshiny,\nshinycssloaders,\ntidyr",
+        "Suggests": "testthat (>= 3.0.0)",
+        "Config/testthat/edition": "3",
+        "Config/roxygen2/version": "8.0.0",
+        "Author": "Fred Buckhold [aut, cre]",
+        "Maintainer": "Fred Buckhold <fbuckhold3@icloud.com>",
+        "Built": "R 4.6.0; ; 2026-09-04 14:12:48 UTC; unix",
+        "RemoteType": "github",
+        "RemoteHost": "api.github.com",
+        "RemoteUsername": "fbuckhold3",
+        "RemoteRepo": "amiontools",
+        "RemoteRef": "main",
+        "RemoteSha": "3f2b10122327bfe29d809259bb8e05929f02ab03",
+        "GithubHost": "api.github.com",
+        "GithubRepo": "amiontools",
+        "GithubUsername": "fbuckhold3",
+        "GithubRef": "main",
+        "GithubSHA1": "3f2b10122327bfe29d809259bb8e05929f02ab03"
       }
     },
     "askpass": {
@@ -1072,24 +1104,25 @@
         "License": "MIT + file LICENSE",
         "Encoding": "UTF-8",
         "Roxygen": "list(markdown = TRUE)",
-        "RoxygenNote": "7.3.2",
         "Suggests": "knitr,\nrmarkdown,\ntestthat (>= 3.0.0)",
         "Config/testthat/edition": "3",
-        "Imports": "dplyr, httr, readr, jsonlite, DT, reactable, htmltools,\nplotly, rlang, config, lubridate, tidyr, shinyjs, shiny, bslib,\ndata.table, tibble, purrr",
+        "Imports": "dplyr, httr, readr, jsonlite, DT, reactable, htmltools,\nplotly, rlang, config, lubridate, tidyr, shinyjs, shiny, bslib,\ndata.table, tibble, purrr, roundsui",
+        "Config/roxygen2/version": "8.0.0",
         "Author": "First Last [aut, cre]",
         "Maintainer": "First Last <first.last@example.com>",
-        "Built": "R 4.6.0; ; 2026-06-30 03:07:51 UTC; unix",
+        "Built": "R 4.6.0; ; 2026-09-04 14:12:45 UTC; unix",
         "RemoteType": "github",
+        "Remotes": "fbuckhold3/roundsui",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "fbuckhold3",
         "RemoteRepo": "gmed",
-        "RemoteRef": "6e1afd1cd0a833a16ce6d1773574c6addf741255",
-        "RemoteSha": "6e1afd1cd0a833a16ce6d1773574c6addf741255",
+        "RemoteRef": "main",
+        "RemoteSha": "6e929f90f3beaaeb612c908e8b65f7d8cca6fefa",
         "GithubHost": "api.github.com",
         "GithubRepo": "gmed",
         "GithubUsername": "fbuckhold3",
-        "GithubRef": "6e1afd1cd0a833a16ce6d1773574c6addf741255",
-        "GithubSHA1": "6e1afd1cd0a833a16ce6d1773574c6addf741255"
+        "GithubRef": "main",
+        "GithubSHA1": "6e929f90f3beaaeb612c908e8b65f7d8cca6fefa"
       }
     },
     "gtable": {
@@ -2206,6 +2239,37 @@
         "RemoteSha": "2.31"
       }
     },
+    "roundsui": {
+      "Source": "github",
+      "Repository": null,
+      "description": {
+        "Package": "roundsui",
+        "Title": "Shared UI Components and Design Tokens for the Rounds Ecosystem",
+        "Version": "0.0.0.9000",
+        "Authors@R": "\n    person(\"Fred\", \"Buckhold\", , \"fbuckhold3@icloud.com\", role = c(\"aut\", \"cre\"))",
+        "Description": "Shared Shiny UI components, design tokens, and theming\n    (\"Ward Notes\") for the rounds ecosystem of internal medicine GME\n    applications, independent of any one app's REDCap data-loading layer.\n    Component families: shared feedback/state (loading, empty, error),\n    shell/navigation, data-visualization wrappers, and data-entry patterns.",
+        "License": "MIT + file LICENSE",
+        "Encoding": "UTF-8",
+        "Roxygen": "list(markdown = TRUE)",
+        "RoxygenNote": "8.0.0",
+        "Imports": "shiny,\nbslib",
+        "Suggests": "plotly,\nDT,\nshinyjs",
+        "Author": "Fred Buckhold [aut, cre]",
+        "Maintainer": "Fred Buckhold <fbuckhold3@icloud.com>",
+        "Built": "R 4.6.0; ; 2026-09-04 14:13:02 UTC; unix",
+        "RemoteType": "github",
+        "RemoteHost": "api.github.com",
+        "RemoteUsername": "fbuckhold3",
+        "RemoteRepo": "roundsui",
+        "RemoteRef": "master",
+        "RemoteSha": "61b1e2ea5edb3dd5896d02484bf089fa8cd9e9d5",
+        "GithubHost": "api.github.com",
+        "GithubRepo": "roundsui",
+        "GithubUsername": "fbuckhold3",
+        "GithubRef": "master",
+        "GithubSHA1": "61b1e2ea5edb3dd5896d02484bf089fa8cd9e9d5"
+      }
+    },
     "sass": {
       "Source": "CRAN",
       "Repository": "https://packagemanager.posit.co/cran/latest",
@@ -2308,6 +2372,39 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "aarch64-apple-darwin23",
         "RemoteSha": "1.14.0"
+      }
+    },
+    "shinycssloaders": {
+      "Source": "CRAN",
+      "Repository": "https://packagemanager.posit.co/cran/latest",
+      "description": {
+        "Package": "shinycssloaders",
+        "Title": "Add Loading Animations to a 'shiny' Output While It's\nRecalculating",
+        "Version": "1.1.0",
+        "Authors@R": "c(\n    person(\"Dean\",\"Attali\",email=\"daattali@gmail.com\",role=c(\"aut\",\"cre\"),\n        comment = c(\"Maintainer/developer of shinycssloaders since 2019\", ORCID=\"0000-0002-5645-3493\")),\n    person(\"Andras\",\"Sali\",email=\"andras.sali@alphacruncher.hu\",role=c(\"aut\"),comment=\"Original creator of shinycssloaders package\"),\n    person(\"Luke\",\"Hass\",role=c(\"ctb\",\"cph\"),comment=\"Author of included CSS loader code\")\n    )",
+        "Description": "When a 'Shiny' output (such as a plot, table, map, etc.) is recalculating, it remains \n    visible but gets greyed out. Using 'shinycssloaders', you can add a loading animation (\"spinner\")\n    to outputs instead. By wrapping a 'Shiny' output in 'withSpinner()', a spinner will automatically\n    appear while the output is recalculating. You can also manually show and hide the spinner, or add\n    a full-page spinner to cover the entire page.\n    See the demo online at <https://daattali.com/shiny/shinycssloaders-demo/>.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://github.com/daattali/shinycssloaders,\nhttps://daattali.com/shiny/shinycssloaders-demo/",
+        "BugReports": "https://github.com/daattali/shinycssloaders/issues",
+        "Depends": "R (>= 3.1)",
+        "Imports": "digest, glue, grDevices, htmltools (>= 0.3.5), shiny",
+        "Suggests": "knitr, shinydisconnect, shinyjs",
+        "RoxygenNote": "7.2.3",
+        "Encoding": "UTF-8",
+        "NeedsCompilation": "no",
+        "Packaged": "2024-07-30 18:52:48 UTC; Dean",
+        "Author": "Dean Attali [aut, cre] (Maintainer/developer of shinycssloaders since\n    2019, <https://orcid.org/0000-0002-5645-3493>),\n  Andras Sali [aut] (Original creator of shinycssloaders package),\n  Luke Hass [ctb, cph] (Author of included CSS loader code)",
+        "Maintainer": "Dean Attali <daattali@gmail.com>",
+        "Repository": "CRAN",
+        "Date/Publication": "2024-07-30 22:30:02 UTC",
+        "Built": "R 4.6.0; ; 2026-04-26 11:10:57 UTC; unix",
+        "RemoteType": "standard",
+        "RemoteRef": "shinycssloaders",
+        "RemotePkgRef": "shinycssloaders",
+        "RemoteRepos": "https://cloud.r-project.org",
+        "RemoteReposName": "CRAN",
+        "RemotePkgPlatform": "aarch64-apple-darwin23",
+        "RemoteSha": "1.1.0"
       }
     },
     "shinyjs": {
@@ -2932,13 +3029,16 @@
       "checksum": "78a543db88e63eef082b03436adc444f"
     },
     ".Rprofile": {
-      "checksum": "f217b6f4ac677f870ab05d97fc565eb5"
+      "checksum": "4595ffd36097c68ddf1f1b68da16f42f"
+    },
+    "refresh_amion.qmd": {
+      "checksum": "96f152f594457040ed002b021db3a38b"
     },
     "refresh.qmd": {
       "checksum": "a1ac1f2fbda9a0b13a25b8e86cb76d68"
     },
     "renv.lock": {
-      "checksum": "eb5f0fef08efcd4ee03c244a9ac3cb84"
+      "checksum": "951f51da260c95fc97a3ea7a31cee917"
     }
   },
   "users": null

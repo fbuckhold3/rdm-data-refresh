@@ -8,14 +8,17 @@ execute:
 ---
 
 Pulls Amion schedule data + the RDM crosswalk, rebuilds amiontools'
-aggregate rotation/team/time-allocation summaries, and writes them to the
-`app_cache` REDCap record (separate fields from the milestone medians
-cache) so ind.dash's Schedule tab can load in ~1 second instead of
-re-fetching Amion + recomputing on every session.
+aggregate rotation/team/time-allocation summaries plus the RLE-encoded
+per-day expected-conference calendar, and writes them to the `app_cache`
+REDCap record (separate fields from the milestone medians cache) so
+ind.dash's Schedule tab and Conference Attendance page can load in ~1
+second instead of re-fetching Amion + recomputing on every session.
 
-Deliberately aggregate-only — full per-resident-day detail
+Deliberately aggregate/RLE-only — full per-resident-day detail
 (`build_daily_detail()`) is ~12 MB and far too large for a REDCap Notes
-Box field; that stays a live fetch.
+Box field; that stays a live fetch (the Daily Detail section, and the
+"questions" attendance log, which must always stay live regardless of
+size — see amiontools' attendance_reconciliation.R header).
 
 Schedule this content **weekly** on Posit Connect Cloud — separate
 schedule from `refresh.qmd`'s 30-60 min cadence, since Amion's academic-year
@@ -74,6 +77,7 @@ cat("Amion rows:           ", nrow(amion), "\n")
 rot    <- build_rotation_summary(crosswalk = crosswalk, amion = amion)
 team   <- build_team_summary(crosswalk = crosswalk, amion = amion)
 talloc <- build_time_allocation_summary(crosswalk = crosswalk, amion = amion)
+calendar_rle <- build_expected_calendar_rle(RDM_TOKEN, REDCAP_URL, crosswalk = crosswalk, amion = amion)
 
 # Aggregate/per-resident wide tables only -- the same shapes the ind.dash
 # Schedule tab modules already consume. NEVER add build_daily_detail() here
@@ -96,6 +100,7 @@ summaries <- list(
 )
 
 cat("Summary tables built:", paste(names(summaries), collapse = ", "), "\n")
+cat("Expected-calendar RLE rows:", nrow(calendar_rle), "\n")
 ```
 
 ```{r}
@@ -111,6 +116,19 @@ if (isTRUE(ok)) {
   cat("Amion cache updated successfully\n")
 } else {
   cat("WARNING: Amion cache write failed — check logs above\n")
+}
+
+ok_calendar <- gmed::write_expected_calendar_cache(
+  calendar_rle    = calendar_rle,
+  rdm_token       = RDM_TOKEN,
+  redcap_url      = REDCAP_URL,
+  cache_record_id = CACHE_RECORD_ID
+)
+
+if (isTRUE(ok_calendar)) {
+  cat("Expected-calendar cache updated successfully\n")
+} else {
+  cat("WARNING: Expected-calendar cache write failed — check logs above\n")
 }
 ```
 

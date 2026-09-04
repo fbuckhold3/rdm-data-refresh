@@ -232,18 +232,18 @@
         "Config/roxygen2/version": "8.0.0",
         "Author": "Fred Buckhold [aut, cre]",
         "Maintainer": "Fred Buckhold <fbuckhold3@icloud.com>",
-        "Built": "R 4.6.0; ; 2026-09-04 14:12:48 UTC; unix",
+        "Built": "R 4.6.0; ; 2026-09-04 17:24:47 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "fbuckhold3",
         "RemoteRepo": "amiontools",
         "RemoteRef": "main",
-        "RemoteSha": "3f2b10122327bfe29d809259bb8e05929f02ab03",
+        "RemoteSha": "6d37078067c7468aef3450af14e13866a3a915c3",
         "GithubHost": "api.github.com",
         "GithubRepo": "amiontools",
         "GithubUsername": "fbuckhold3",
         "GithubRef": "main",
-        "GithubSHA1": "3f2b10122327bfe29d809259bb8e05929f02ab03"
+        "GithubSHA1": "6d37078067c7468aef3450af14e13866a3a915c3"
       }
     },
     "askpass": {
@@ -1110,19 +1110,19 @@
         "Config/roxygen2/version": "8.0.0",
         "Author": "First Last [aut, cre]",
         "Maintainer": "First Last <first.last@example.com>",
-        "Built": "R 4.6.0; ; 2026-09-04 14:12:45 UTC; unix",
+        "Built": "R 4.6.0; ; 2026-09-04 17:24:44 UTC; unix",
         "RemoteType": "github",
         "Remotes": "fbuckhold3/roundsui",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "fbuckhold3",
         "RemoteRepo": "gmed",
         "RemoteRef": "main",
-        "RemoteSha": "6e929f90f3beaaeb612c908e8b65f7d8cca6fefa",
+        "RemoteSha": "6df2786c71baf5219a84965f15204cf4929d62a7",
         "GithubHost": "api.github.com",
         "GithubRepo": "gmed",
         "GithubUsername": "fbuckhold3",
         "GithubRef": "main",
-        "GithubSHA1": "6e929f90f3beaaeb612c908e8b65f7d8cca6fefa"
+        "GithubSHA1": "6df2786c71baf5219a84965f15204cf4929d62a7"
       }
     },
     "gtable": {
@@ -3029,16 +3029,16 @@
       "checksum": "78a543db88e63eef082b03436adc444f"
     },
     ".Rprofile": {
-      "checksum": "4595ffd36097c68ddf1f1b68da16f42f"
+      "checksum": "637bfc6b50fce562797e4b9f37c6b04e"
     },
     "refresh_amion.qmd": {
-      "checksum": "96f152f594457040ed002b021db3a38b"
+      "checksum": "39131ab71194cfa8b24c4cb1a94b58b5"
     },
     "refresh.qmd": {
       "checksum": "a1ac1f2fbda9a0b13a25b8e86cb76d68"
     },
     "renv.lock": {
-      "checksum": "951f51da260c95fc97a3ea7a31cee917"
+      "checksum": "0348eb70e6547d0668f257e88bcf00a3"
     }
   },
   "users": null

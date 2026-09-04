@@ -48,7 +48,20 @@ start_time <- Sys.time()
 cat("Starting Amion + crosswalk pull at", format(start_time, "%Y-%m-%d %H:%M:%S"), "\n")
 
 crosswalk <- get_amion_crosswalk(RDM_TOKEN, REDCAP_URL, verified_only = TRUE)
-amion     <- fetch_amion_data()
+
+# IMPORTANT: fetch_amion_data() called with no `urls=` defaults to pulling
+# EVERY academic year since AMION_START_AY (2022) through the present --
+# every other caller in amiontools (use_amion_data(), build_*_summary()'s
+# own internal default, daily_detail.R) explicitly scopes to the current
+# AY via build_amion_urls(..., start_ay=, end_ay=current_ay_start()).
+# Match that here -- an earlier version of this script called
+# fetch_amion_data() bare and silently pulled 5 academic years (368K rows
+# instead of 66.5K), inflating every per-resident total ~2-5x depending on
+# tenure. Caught live 2026-09-04 via a real resident's numbers looking
+# wrong in ind.dash, not by inspection.
+amion <- fetch_amion_data(
+  urls = build_amion_urls(AMION_LO_DEFAULT, start_ay = current_ay_start(), end_ay = current_ay_start())
+)
 
 elapsed <- round(as.numeric(difftime(Sys.time(), start_time, units = "secs")), 1)
 cat("Pull complete in", elapsed, "seconds\n")

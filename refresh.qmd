@@ -44,7 +44,8 @@ rdm_raw <- gmed::load_rdm_complete(
   redcap_url   = REDCAP_URL,
   rdm_token    = RDM_TOKEN,
   raw_or_label = "raw",
-  verbose      = FALSE
+  verbose      = FALSE,
+  per_form     = TRUE   # parallel per-instrument export; medians verified identical (gmed >= 45c650c)
 )
 
 elapsed <- round(as.numeric(difftime(Sys.time(), start_time, units = "secs")), 1)

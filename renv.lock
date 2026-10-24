@@ -96,21 +96,22 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "fbuckhold3",
       "RemoteRepo": "amiontools",
-      "RemoteRef": "main",
-      "RemoteSha": "6d37078067c7468aef3450af14e13866a3a915c3",
+      "RemoteRef": "38e609f946d7333c6191efd96c5e21a685a6cc70",
+      "RemoteSha": "38e609f946d7333c6191efd96c5e21a685a6cc70",
       "Requirements": [
         "DT",
         "REDCapR",
         "dplyr",
         "gmed",
         "httr",
+        "jsonlite",
         "lubridate",
         "plotly",
         "shiny",
         "shinycssloaders",
         "tidyr"
       ],
-      "Hash": "d9be79e289e623b6ce3ad307cb09c629"
+      "Hash": "041a2f0cee4707b7b351ccf8c1ae7ed9"
     },
     "askpass": {
       "Package": "askpass",
@@ -439,12 +440,13 @@
       "RemoteHost": "api.github.com",
       "RemoteUsername": "fbuckhold3",
       "RemoteRepo": "gmed",
-      "RemoteRef": "main",
-      "RemoteSha": "6df2786c71baf5219a84965f15204cf4929d62a7",
+      "RemoteRef": "45c650c203d1a75f22406f5a92ee5d3d5c936fb3",
+      "RemoteSha": "45c650c203d1a75f22406f5a92ee5d3d5c936fb3",
       "Requirements": [
         "DT",
         "bslib",
         "config",
+        "curl",
         "data.table",
         "dplyr",
         "htmltools",
@@ -462,7 +464,7 @@
         "tibble",
         "tidyr"
       ],
-      "Hash": "94192619ad470cfa39e6b92da740435b"
+      "Hash": "099348488c76994bdba10939920f5f50"
     },
     "gtable": {
       "Package": "gtable",

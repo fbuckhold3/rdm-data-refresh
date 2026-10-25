@@ -220,7 +220,7 @@
       "description": {
         "Package": "amiontools",
         "Title": "Shared Amion Schedule Fetch, Classification, and Crosswalk Tools",
-        "Version": "0.0.1",
+        "Version": "0.1.0",
         "Authors@R": "\n    person(\"Fred\", \"Buckhold\", , \"fbuckhold3@icloud.com\", role = c(\"aut\", \"cre\"))",
         "Description": "Shared functions for pulling resident schedule data from\n    Amion, classifying assignments into top-level rotation categories, and\n    crosswalking Amion identities against RDM resident_id records. Used by\n    amion-va-report and downstream rotation-analysis, attendance-\n    reconciliation, and duty-hour tools across the IMSLU / GME Tools\n    ecosystem.",
         "License": "MIT + file LICENSE",
@@ -232,18 +232,18 @@
         "Config/roxygen2/version": "8.0.0",
         "Author": "Fred Buckhold [aut, cre]",
         "Maintainer": "Fred Buckhold <fbuckhold3@icloud.com>",
-        "Built": "R 4.6.0; ; 2026-10-21 00:53:33 UTC; unix",
+        "Built": "R 4.6.0; ; 2026-10-25 18:50:19 UTC; unix",
         "RemoteType": "github",
         "RemoteHost": "api.github.com",
         "RemoteUsername": "fbuckhold3",
         "RemoteRepo": "amiontools",
-        "RemoteRef": "38e609f946d7333c6191efd96c5e21a685a6cc70",
-        "RemoteSha": "38e609f946d7333c6191efd96c5e21a685a6cc70",
+        "RemoteRef": "873cfa90f2ebd1ab8f35e13cd2e17216d33052e6",
+        "RemoteSha": "873cfa90f2ebd1ab8f35e13cd2e17216d33052e6",
         "GithubHost": "api.github.com",
         "GithubRepo": "amiontools",
         "GithubUsername": "fbuckhold3",
-        "GithubRef": "38e609f946d7333c6191efd96c5e21a685a6cc70",
-        "GithubSHA1": "38e609f946d7333c6191efd96c5e21a685a6cc70"
+        "GithubRef": "873cfa90f2ebd1ab8f35e13cd2e17216d33052e6",
+        "GithubSHA1": "873cfa90f2ebd1ab8f35e13cd2e17216d33052e6"
       }
     },
     "askpass": {
@@ -3029,7 +3029,7 @@
       "checksum": "78a543db88e63eef082b03436adc444f"
     },
     ".Rprofile": {
-      "checksum": "d184c1265e467a1f7d6f21718919ab39"
+      "checksum": "8087a83ed346cf73b5bae20d590a7d40"
     },
     "refresh_amion.qmd": {
       "checksum": "39131ab71194cfa8b24c4cb1a94b58b5"
@@ -3038,7 +3038,7 @@
       "checksum": "94d015e73180610779cc0c14c77bf241"
     },
     "renv.lock": {
-      "checksum": "fc5db158ecd373e1e57f7608e9efbb9d"
+      "checksum": "3ea979ef61471cd47b3d2c9cbe04a15e"
     }
   },
   "users": null

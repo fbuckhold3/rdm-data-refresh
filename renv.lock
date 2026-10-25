@@ -90,14 +90,14 @@
     },
     "amiontools": {
       "Package": "amiontools",
-      "Version": "0.0.1",
+      "Version": "0.1.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteUsername": "fbuckhold3",
       "RemoteRepo": "amiontools",
-      "RemoteRef": "38e609f946d7333c6191efd96c5e21a685a6cc70",
-      "RemoteSha": "38e609f946d7333c6191efd96c5e21a685a6cc70",
+      "RemoteRef": "873cfa90f2ebd1ab8f35e13cd2e17216d33052e6",
+      "RemoteSha": "873cfa90f2ebd1ab8f35e13cd2e17216d33052e6",
       "Requirements": [
         "DT",
         "REDCapR",
@@ -111,7 +111,7 @@
         "shinycssloaders",
         "tidyr"
       ],
-      "Hash": "041a2f0cee4707b7b351ccf8c1ae7ed9"
+      "Hash": "958800f79e132c8970cc5fd7e96f2a41"
     },
     "askpass": {
       "Package": "askpass",

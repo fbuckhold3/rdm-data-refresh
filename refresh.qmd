@@ -79,6 +79,36 @@ if (is.null(rdm_raw$historical_medians) || length(rdm_raw$historical_medians) ==
 ```
 
 ```{r}
+#| label: write-spread-cache
+# Program spread (median + 25th-75th percentile) of milestone ratings by
+# period, for the progression chart in the self-eval milestone section.
+# Uses every resident, graduates included, from July 2021 on; grad_yr comes
+# from a separate read because rdm_raw$residents holds active residents only.
+if (is.null(rdm_raw$historical_medians) || length(rdm_raw$historical_medians) == 0) {
+  cat("WARNING: historical_medians is empty — spread cache not updated\n")
+} else {
+  grad_years <- REDCapR::redcap_read_oneshot(
+    redcap_uri = REDCAP_URL, token = RDM_TOKEN,
+    fields = c("record_id", "grad_yr"), guess_type = FALSE, verbose = FALSE
+  )$data
+  spread <- gmed::milestone_spread(rdm_raw$historical_medians,
+                                   grad_years = grad_years, cohort_start = 2021)
+  ok <- gmed::write_milestone_spread_cache(
+    spread,
+    rdm_token       = RDM_TOKEN,
+    redcap_url      = REDCAP_URL,
+    cache_record_id = CACHE_RECORD_ID,
+    cohort_start    = 2021
+  )
+  if (isTRUE(ok)) {
+    cat("Milestone spread cache updated:", nrow(spread), "rows\n")
+  } else {
+    cat("WARNING: milestone spread cache write failed — check logs above\n")
+  }
+}
+```
+
+```{r}
 #| label: summary
 cat("---\n")
 cat("Completed at:", format(Sys.time(), "%Y-%m-%d %H:%M:%S"), "\n")
